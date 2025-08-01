@@ -1,21 +1,26 @@
-function genDiff(obj1, obj2) {
-    const allKeys = [...new Set([...Object.keys(obj1), ...Object.keys(obj2)])];
-    const sortedKeys = allKeys.sort();
-  
-    const diffLines = sortedKeys.map(key => {
+const buildDiff = (obj1, obj2) => {
+    const keys = [...new Set([...Object.keys(obj1), ...Object.keys(obj2)])].sort();
+    
+    return keys.map((key) => {
       if (!(key in obj2)) {
-        return `  - ${key}: ${obj1[key]}`;
+        return { key, value: obj1[key], type: 'removed' };
       }
       if (!(key in obj1)) {
-        return `  + ${key}: ${obj2[key]}`;
+        return { key, value: obj2[key], type: 'added' };
+      }
+      if (typeof obj1[key] === 'object' && typeof obj2[key] === 'object' && obj1[key] !== null && obj2[key] !== null) {
+        return { key, children: buildDiff(obj1[key], obj2[key]), type: 'nested' };
       }
       if (obj1[key] !== obj2[key]) {
-        return [`  - ${key}: ${obj1[key]}`, `  + ${key}: ${obj2[key]}`].join('\n');
+        return {
+          key,
+          oldValue: obj1[key],
+          newValue: obj2[key],
+          type: 'changed'
+        };
       }
-      return `    ${key}: ${obj1[key]}`;
+      return { key, value: obj1[key], type: 'unchanged' };
     });
+  };
   
-    return ['{', ...diffLines, '}'].join('\n');
-  }
-  
-  module.exports = genDiff;
+module.exports = buildDiff;
