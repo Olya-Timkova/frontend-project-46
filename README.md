@@ -51,6 +51,39 @@ $ gendiff file1.json file2.json
 }
 ```
 
+## Example 2
+
+### File 1 (file1.yml)
+```yml
+
+host: hexlet.io
+timeout: 50
+proxy: 123.234.53.22
+follow: false
+
+```
+
+### File 2 (file2.yml)
+```yml
+timeout: 20
+verbose: true
+host: hexlet.io
+```
+
+### Output
+```bash
+$ gendiff file1.yml file2.yml
+    {
++   - follow: false
+        host: hexlet.io
+    - proxy: 123.234.53.22
+-   - follow: false
+    - timeout: 50
+    + timeout: 20
+    + verbose: true
+    }
+```
+
 ## Key symbols
 - ` ` (space) - no changes
 - `-` - removed/changed from first file
