@@ -2,6 +2,9 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/Olya-Timkova/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Olya-Timkova/frontend-project-46/actions)",
+  "bin": {
+    "gendiff": "gendiff.js"
+  },
   "main": "gendiff.js",
   "scripts": {
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
