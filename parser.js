@@ -19,13 +19,13 @@ const parseYaml = (content) => {
 const parsers = {
   '.json': parseJson,
   '.yaml': parseYaml,
-  '.yml': parseYaml
+  '.yml': parseYaml,
 };
 
 function parse(content, ext) {
   const normalizedExt = ext.toLowerCase();
   const parser = parsers[normalizedExt];
-  
+
   if (!parser) {
     throw new Error(`Unsupported file format: ${ext}. Supported formats: .json, .yaml, .yml`);
   }
