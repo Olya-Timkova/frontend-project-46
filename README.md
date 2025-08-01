@@ -1,22 +1,19 @@
+# Gendiff - JSON/YAML comparison tool
+
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/Olya-Timkova/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Olya-Timkova/frontend-project-46/actions)
 
-
+### SonarQube status coverage:
 
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Olya-Timkova_frontend-project-46&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Olya-Timkova_frontend-project-46)
 
-# Gendiff - JSON/YAML comparison tool
+### GitHub Actions
 
 ![CI](https://github.com/Olya-Timkova/frontend-project-46/workflows/CI/badge.svg)
 
 ## Installation
 ```bash
 npm install -g gendiff-package
-```
-
-## Installation
-```bash
-npm install -g gendiff-demo-package
 ```
 
 ## Usage
