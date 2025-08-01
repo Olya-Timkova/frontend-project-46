@@ -1,0 +1,6 @@
+extends: airbnb-base
+env:
+  node: true
+  es2021: true
+rules:
+  import/extensions: ["error", "always", { "js": "never" }]

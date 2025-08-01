@@ -1,6 +1,9 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/Olya-Timkova/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Olya-Timkova/frontend-project-46/actions)
 
+![CI](https://github.com/yourname/frontend-project-46/workflows/CI/badge.svg)
+![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=yourname_frontend-project-46&metric=coverage)
+
 # Gendiff - JSON/YAML comparison tool
 
 ## Installation
