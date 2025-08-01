@@ -5,6 +5,7 @@ const genDiff = require('../diffBuilder');
 const parse = require('../parser');
 const formatPlain = require('../formatters/plain');
 const formatPlain2 = require('../formatters/stylish');
+const formatJson = require('../formatters/json')
 
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 const readFile = (filename) => readFileSync(getFixturePath(filename), 'utf-8');
@@ -61,6 +62,29 @@ describe('genDiff', () => {
       const result = formatPlain(diff);
       
       expect(result).toBe("Property 'a.b.c' was updated. From 1 to 2");
+    });
+  });
+
+  describe('json format', () => {
+    test('should format flat differences as json', () => {
+      const file1 = JSON.parse(readFile('file1.json'));
+      const file2 = JSON.parse(readFile('file2.json'));
+      const diff = genDiff(file1, file2);
+      const result = formatJson(diff);
+      const expected = readFile('expected-nested-json.txt').trim();
+      
+      expect(result).toBe(expected);
+    });
+  
+    test('should format nested differences as json', () => {
+      const file1 = parse(readFile('file1.yml'), '.yml');
+      const file2 = parse(readFile('file2.yml'), '.yml');
+      const diff = genDiff(file1, file2);
+      const result = formatJson(diff);
+      console.log(result,'result')
+      const expected = readFile('expected-flat-json.txt').trim();
+      
+      expect(result).toBe(expected);
     });
   });
 });
