@@ -39,10 +39,9 @@ function genDiff(){
 
         const format = options.format || 'stylish';
         const formatter = getFormatter(format);
-
-        const test = formatter(diff);
-        console.log(test)
-        return test;
+        
+        return formatter(diff);
+        // console.log(formatter(diff));
       } catch (error) {
         console.error('Error:', error.message);
         process.exit(1);
@@ -56,8 +55,7 @@ function genDiff(){
     program.parse(process.argv);
   }
 }
-// const result = genDiff()
-// console.log(result);
+
 
 
 module.exports = genDiff();
