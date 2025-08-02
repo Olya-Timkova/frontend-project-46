@@ -29,8 +29,8 @@ function runCLI() {
     });
 
   if (process.argv.length <= 2) {
-    program.help();
-    process.exit(1);
+    console.log(program.helpInformation());
+    process.exitCode = 1;
   }
 
   program.parse(process.argv);
