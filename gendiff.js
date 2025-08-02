@@ -19,7 +19,9 @@ function genDiff2(){
     .option('-f, --format [type]', 'output format')
     .action((filepath1, filepath2, options) => {
       try {
-
+        console.log(filepath1,'Тестим 1');
+        console.log(filepath2,'Тестим 2');
+        console.log(options,'options');
         const result = genDiff(filepath1, filepath2, options.format);
         console.log(result);
       } catch (error) {
