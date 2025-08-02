@@ -1,14 +1,11 @@
 #!/usr/bin/env node
 const { Command } = require('commander');
-const fs = require('fs');
 const path = require('path');
-const parse = require('./parser');
-const buildDiff = require('./diffBuilder');
-const getFormatter = require('./formatters');
-const genDiff = require('./gendiffFoo');
+const genDiff = require('./gendiffFoo'); // Импорт основной функции сравнения
 
-function genDiff2(){
+function runCLI() {
   const program = new Command();
+  let result = null;
 
   program
     .name('gendiff')
@@ -16,26 +13,34 @@ function genDiff2(){
     .version('1.0.0', '-V, --version', 'output the version number')
     .helpOption('-h, --help', 'display help for command')
     .arguments('<filepath1> <filepath2>')
-    .option('-f, --format [type]', 'output format')
+    .option('-f, --format [type]', 'output format', 'stylish') // Добавлено значение по умолчанию
     .action((filepath1, filepath2, options) => {
       try {
-
-        const result = genDiff(filepath1, filepath2, options.format);
+        result = genDiff(
+          path.resolve(filepath1),
+          path.resolve(filepath2),
+          options.format
+        );
         console.log(result);
       } catch (error) {
         console.error('Error:', error.message);
         process.exit(1);
       }
     });
-  
-  if (process.argv.length <= 2) {
-    console.log(program.helpInformation());
-    process.exitCode = 1;
-  } else {
-    program.parse(process.argv);
-  }
-}
- 
 
-// Экспорт по умолчанию
-module.exports = genDiff2;
+  if (process.argv.length <= 2) {
+    program.help();
+    process.exit(1);
+  }
+
+  program.parse(process.argv);
+  return result; // Явно возвращаем результат
+}
+
+// Экспорт функции для тестирования
+module.exports = runCLI;
+
+// Запуск CLI только при прямом вызове
+if (require.main === module) {
+  runCLI();
+}
