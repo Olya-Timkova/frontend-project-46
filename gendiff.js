@@ -6,7 +6,7 @@ const parse = require('./parser');
 const buildDiff = require('./diffBuilder');
 const getFormatter = require('./formatters');
 
-function genDiff(){
+function genDiff() {
   const program = new Command();
 
   program
@@ -15,13 +15,12 @@ function genDiff(){
     .version('1.0.0', '-V, --version', 'output the version number')
     .helpOption('-h, --help', 'display help for command')
     .arguments('<filepath1> <filepath2>')
-    .option('-f, --format [type]  output format')
+    .option('-f, --format [type]', 'output format')
     .action((filepath1, filepath2, options) => {
       try {
         const absolutePath1 = path.resolve(process.cwd(), filepath1);
         const absolutePath2 = path.resolve(process.cwd(), filepath2);
   
-        // Проверяем существование файлов
         if (!fs.existsSync(absolutePath1)) {
           throw new Error(`File not found: ${absolutePath1}`);
         }
@@ -39,9 +38,9 @@ function genDiff(){
 
         const format = options.format || 'stylish';
         const formatter = getFormatter(format);
-        console.log(formatter(diff));
-        return formatter(diff);
-       
+        const result = formatter(diff);
+        console.log(result);
+        return result;
       } catch (error) {
         console.error('Error:', error.message);
         process.exit(1);
@@ -49,13 +48,12 @@ function genDiff(){
     });
   
   if (process.argv.length <= 2) {
-    console.log(program.helpInformation()); // Just shows help without exiting
-    process.exitCode = 1; // Set exit code without calling process.exit()
+    console.log(program.helpInformation());
+    process.exitCode = 1;
   } else {
     program.parse(process.argv);
   }
 }
 
-
-
-module.exports = genDiff();
+// Экспортируем саму функцию, а не результат ее вызова
+module.exports = genDiff;
