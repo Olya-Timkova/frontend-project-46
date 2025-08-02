@@ -34,11 +34,15 @@ function genDiff(){
   
         const data1 = parse(content1, path.extname(absolutePath1));
         const data2 = parse(content2, path.extname(absolutePath2));
+
         const diff = buildDiff(data1, data2);
+
         const format = options.format || 'stylish';
         const formatter = getFormatter(format);
-        return formatter(diff);
-        // console.log(formatter(diff));
+
+        const test = formatter(diff);
+        console.log(test)
+        return test;
       } catch (error) {
         console.error('Error:', error.message);
         process.exit(1);
@@ -52,7 +56,8 @@ function genDiff(){
     program.parse(process.argv);
   }
 }
-genDiff()
+// const result = genDiff()
+// console.log(result);
 
 
-module.exports = genDiff;
+module.exports = genDiff();
