@@ -31,8 +31,10 @@ function genDiff2(){
   if (process.argv.length <= 2) {
     console.log(program.helpInformation());
     process.exitCode = 1;
+  }else{
+    program.parse(process.argv);
+
   } 
-  program.parse(process.argv);
 
 }
  
