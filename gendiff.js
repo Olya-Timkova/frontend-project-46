@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 const { Command } = require('commander');
-const { readFileSync } = require('fs');
 const fs = require('fs');
 const path = require('path');
 const parse = require('./parser');
@@ -18,7 +17,7 @@ program
   .option('-f, --format [type]  output format')
   .action((filepath1, filepath2, options) => {
     try {
-      console.log('1')
+      console.log('1');
       const absolutePath1 = path.resolve(process.cwd(), filepath1);
       const absolutePath2 = path.resolve(process.cwd(), filepath2);
 
@@ -35,11 +34,11 @@ program
 
       const data1 = parse(content1, path.extname(absolutePath1));
       const data2 = parse(content2, path.extname(absolutePath2));
-      console.log('2')
+      console.log('2');
       const diff = buildDiff(data1, data2);
       const format = options.format || 'stylish';
       const formatter = getFormatter(format);
-      console.log('3')
+      console.log('3');
       console.log(formatter(diff));
     } catch (error) {
       console.error('Error:', error.message);
@@ -48,9 +47,8 @@ program
   });
 
 if (process.argv.length <= 2) {
-  program.help();
+  console.log(program.helpInformation()); // Just shows help without exiting
+  process.exitCode = 1; // Set exit code without calling process.exit()
 } else {
   program.parse(process.argv);
 }
-
-
