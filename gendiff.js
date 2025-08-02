@@ -7,7 +7,7 @@ const buildDiff = require('./diffBuilder');
 const getFormatter = require('./formatters');
 const genDiff = require('./gendiffFoo');
 
-
+function genDiff2(){
   const program = new Command();
 
   program
@@ -34,4 +34,8 @@ const genDiff = require('./gendiffFoo');
   } else {
     program.parse(process.argv);
   }
+}
+ 
 
+// Экспорт по умолчанию
+module.exports = genDiff2;
