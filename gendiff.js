@@ -27,7 +27,8 @@ program
       const data2 = parse(content2, path.extname(absolutePath2));
 
       const diff = buildDiff(data1, data2);
-      const formatter = getFormatter(options.format);
+      const format = options.format || 'stylish'
+      const formatter = getFormatter(format);
       console.log(formatter(diff));
     } catch (error) {
       console.error('Error:', error.message);
