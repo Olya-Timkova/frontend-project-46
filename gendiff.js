@@ -13,9 +13,8 @@ program
   .description('Compares two configuration files and shows a difference.')
   .version('1.0.0', '-V, --version', 'output the version number')
   .helpOption('-h, --help', 'display help for command')
-  .argument('<filepath1>', 'path to first file')
-  .argument('<filepath2>', 'path to second file')
-  .option('-f, --format <type>', 'output format (choices: "stylish", "plain")', 'stylish')
+  .arguments('<filepath1> <filepath2>')
+  .option('-f, --format [type]  output format')
   .action((filepath1, filepath2, options) => {
     try {
       const absolutePath1 = path.resolve(process.cwd(), filepath1);
@@ -36,8 +35,8 @@ program
     }
   });
 
-  if (process.argv.length < 4) {
-    program.help();
-  } else {
-    program.parse(process.argv);
-  }
+if (process.argv.length < 4) {
+  program.help();
+} else {
+  program.parse(process.argv);
+}
