@@ -39,9 +39,9 @@ function genDiff(){
 
         const format = options.format || 'stylish';
         const formatter = getFormatter(format);
-        
+        console.log(formatter(diff));
         return formatter(diff);
-        // console.log(formatter(diff));
+       
       } catch (error) {
         console.error('Error:', error.message);
         process.exit(1);
