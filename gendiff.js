@@ -5,8 +5,9 @@ const path = require('path');
 const parse = require('./parser');
 const buildDiff = require('./diffBuilder');
 const getFormatter = require('./formatters');
+const genDiff = require('./gendiffFoo');
 
-function genDiff() {
+
   const program = new Command();
 
   program
@@ -18,29 +19,9 @@ function genDiff() {
     .option('-f, --format [type]', 'output format')
     .action((filepath1, filepath2, options) => {
       try {
-        const absolutePath1 = path.resolve(process.cwd(), filepath1);
-        const absolutePath2 = path.resolve(process.cwd(), filepath2);
-  
-        if (!fs.existsSync(absolutePath1)) {
-          throw new Error(`File not found: ${absolutePath1}`);
-        }
-        if (!fs.existsSync(absolutePath2)) {
-          throw new Error(`File not found: ${absolutePath2}`);
-        }
-  
-        const content1 = fs.readFileSync(absolutePath1, 'utf8');
-        const content2 = fs.readFileSync(absolutePath2, 'utf8');
-  
-        const data1 = parse(content1, path.extname(absolutePath1));
-        const data2 = parse(content2, path.extname(absolutePath2));
 
-        const diff = buildDiff(data1, data2);
-
-        const format = options.format || 'stylish';
-        const formatter = getFormatter(format);
-        const result = formatter(diff);
+        const result = genDiff(filepath1, filepath2, options.format);
         console.log(result);
-        return result;
       } catch (error) {
         console.error('Error:', error.message);
         process.exit(1);
@@ -53,7 +34,4 @@ function genDiff() {
   } else {
     program.parse(process.argv);
   }
-}
 
-// Экспортируем саму функцию, а не результат ее вызова
-module.exports = genDiff;

@@ -1,0 +1,27 @@
+// gendiff.js (основной модуль)
+const fs = require('fs');
+const path = require('path');
+const parse = require('./parser');
+const buildDiff = require('./diffBuilder');
+const getFormatter = require('./formatters');
+
+function genDiff(filepath1, filepath2, format = 'stylish') {
+  const absolutePath1 = path.resolve(process.cwd(), filepath1);
+  const absolutePath2 = path.resolve(process.cwd(), filepath2);
+
+  if (!fs.existsSync(absolutePath1) || !fs.existsSync(absolutePath2)) {
+    throw new Error('File not found');
+  }
+
+  const content1 = fs.readFileSync(absolutePath1, 'utf8');
+  const content2 = fs.readFileSync(absolutePath2, 'utf8');
+
+  const data1 = parse(content1, path.extname(absolutePath1));
+  const data2 = parse(content2, path.extname(absolutePath2));
+
+  const diff = buildDiff(data1, data2);
+  const formatter = getFormatter(format);
+  return formatter(diff);
+}
+
+module.exports = genDiff;
