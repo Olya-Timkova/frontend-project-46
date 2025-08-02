@@ -36,4 +36,9 @@ program
     }
   });
 
-program.parse(process.argv);
+// Особенная обработка для -h/--help
+if (process.argv.includes('-h') || process.argv.includes('--help')) {
+  program.help();
+} else {
+  program.parse(process.argv);
+}
