@@ -22,10 +22,17 @@ function genDiff(filepath1, filepath2, format = 'stylish') {
   const diff = buildDiff(data1, data2);
   const formatter = getFormatter(format);
 
+  console.log(absolutePath1,'absolutePath1')
+  console.log(absolutePath2,'absolutePath2')
+  console.log(format,'format')
+
+
   console.log('Data1:', JSON.stringify(data1, null, 2));
   console.log('Data2:', JSON.stringify(data2, null, 2));
-  console.log('Diff:', diff);
-  console.log('Formatted result:', formatter(diff));
+
+  console.log('мой formatter', formatter)
+  // console.log('Diff:', diff);
+  // console.log('Formatted result:', formatter(diff));
   return formatter(diff);
 }
 
